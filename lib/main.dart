@@ -1,6 +1,4 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -20,9 +18,8 @@ import 'package:user_groceryapp/screens/auth/login.dart';
 import 'package:user_groceryapp/screens/auth/register.dart';
 import 'package:user_groceryapp/screens/btm_bar.dart';
 import 'package:user_groceryapp/screens/feedback.dart';
-import 'package:user_groceryapp/screens/home_screen.dart';
 import 'package:user_groceryapp/screens/orders/orders_screen.dart';
-import 'package:user_groceryapp/screens/payment/payment.dart';
+
 import 'package:user_groceryapp/screens/viewed_recently/viewed_recently.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
