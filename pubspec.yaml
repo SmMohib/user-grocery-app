@@ -1,4 +1,5 @@
 name: user_groceryapp
+#user_groceryapp
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -54,6 +55,10 @@ dependencies:
   flutter_stripe: 
   quickalert: 
   http: 
+  flutter_inappwebview: ^5.7.2+3
+  encrypt: ^5.0.1
+  firebase_storage: ^11.2.2
+  image_picker: ^0.8.7+5
 
 dev_dependencies:
   flutter_test:

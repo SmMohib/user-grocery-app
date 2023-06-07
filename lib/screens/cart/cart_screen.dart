@@ -9,6 +9,7 @@ import 'package:user_groceryapp/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../payment/checkout.dart';
 import '../../providers/cart_provider.dart';
 import '../../providers/orders_provider.dart';
 import '../../providers/products_provider.dart';
@@ -103,55 +104,106 @@ class CartScreen extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Row(children: [
-          Material(
+         Material(
             color: Colors.green,
             borderRadius: BorderRadius.circular(10),
             child: InkWell(
               borderRadius: BorderRadius.circular(10),
               onTap: () async {
-                User? user = authInstance.currentUser;
-                final orderId = const Uuid().v4();
-                final productProvider =
-                    Provider.of<ProductsProvider>(ctx, listen: false);
+                showModalBottomSheet<void>(
+                    // context and builder are
+                    // required properties in this widget
+                    context: ctx,
+                    builder: (BuildContext context) {
+                      // we set up a container inside which
+                      // we create center column and display text
 
-                cartProvider.getCartItems.forEach((key, value) async {
-                  final getCurrProduct = productProvider.findProdById(
-                    value.productId,
-                  );
-                  try {
-                    await FirebaseFirestore.instance
-                        .collection('orders')
-                        .doc(orderId)
-                        .set({
-                      'orderId': orderId,
-                      'userId': user!.uid,
-                      'productId': value.productId,
-                      'price': (getCurrProduct.isOnSale
-                              ? getCurrProduct.salePrice
-                              : getCurrProduct.price) *
-                          value.quantity,
-                      'totalPrice': total,
-                      'quantity': value.quantity,
-                      'imageUrl': getCurrProduct.imageUrl,
-                      'userName': user.displayName,
-                     // 'phoneNumber': user.phoneNumber,
-                      'email': user.email,
-                      //  'shipping-address': user,
-                      'orderDate': Timestamp.now(),
+                      // Returning SizedBox instead of a Container
+                      return SizedBox(
+                        height: 180,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextWidget(
+                                  text: 'Payment System',
+                                  color: color,
+                                  textSize: 20),
+                            ),
+                            const Divider(
+                              color: Color.fromARGB(96, 42, 40, 40),
+                              thickness: 0.7,
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  User? user = authInstance.currentUser;
+                                  final orderId = const Uuid().v4();
+                                  final productProvider =
+                                      Provider.of<ProductsProvider>(ctx,
+                                          listen: false);
+
+                                  cartProvider.getCartItems
+                                      .forEach((key, value) async {
+                                    final getCurrProduct =
+                                        productProvider.findProdById(
+                                      value.productId,
+                                    );
+                                    try {
+                                      await FirebaseFirestore.instance
+                                          .collection('orders')
+                                          .doc(orderId)
+                                          .set({
+                                        'orderId': orderId,
+                                        'userId': user!.uid,
+                                        'productId': value.productId,
+                                        'price': (getCurrProduct.isOnSale
+                                                ? getCurrProduct.salePrice
+                                                : getCurrProduct.price) *
+                                            value.quantity,
+                                        'totalPrice': total,
+                                        'quantity': value.quantity,
+                                        'imageUrl': getCurrProduct.imageUrl,
+                                        'userName': user.displayName,
+                                        // 'phoneNumber': user.phoneNumber,
+                                        'email': user.email,
+                                        //  'shipping-address': user,
+                                        'orderDate': Timestamp.now(),
+                                      });
+                                      await cartProvider.clearOnlineCart();
+                                      cartProvider.clearLocalCart();
+                                      ordersProvider.fetchOrders();
+                                      await Fluttertoast.showToast(
+                                        msg: "Your order has been placed",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                      );
+                                    } catch (error) {
+                                      GlobalMethods.errorDialog(
+                                          subtitle: error.toString(),
+                                          context: ctx);
+                                    } finally {}
+                                  });
+                                  Navigator.pop(context);
+                                },
+                                child: TextWidget(
+                                    text: 'Cash on delivery',
+                                    color: color,
+                                    textSize: 16)),
+                            TextButton(
+                                onPressed: () {
+                                Navigator.push(context, 
+                                MaterialPageRoute(builder: (context) => CheckOutScreen(),));
+                                },
+                                child: TextWidget(
+                                    text: 'Payment Now',
+                                    color: color,
+                                    textSize: 16))
+                          ],
+                        ),
+                      );
                     });
-                    await cartProvider.clearOnlineCart();
-                    cartProvider.clearLocalCart();
-                    ordersProvider.fetchOrders();
-                    await Fluttertoast.showToast(
-                      msg: "Your order has been placed",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                    );
-                  } catch (error) {
-                    GlobalMethods.errorDialog(
-                        subtitle: error.toString(), context: ctx);
-                  } finally {}
-                });
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

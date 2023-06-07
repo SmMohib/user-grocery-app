@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:user_groceryapp/consts/firebase_consts.dart';
 import 'package:user_groceryapp/screens/auth/forget_pass.dart';
+import 'package:user_groceryapp/screens/chat/chatroom/auth.dart';
+import 'package:user_groceryapp/screens/chat/chatroom/authScreen.dart';
+import 'package:user_groceryapp/screens/chat/chatroom/chatScreen.dart';
+import 'package:user_groceryapp/screens/chat/chatroom/joinRoom.dart';
+import 'package:user_groceryapp/screens/feedback.dart';
 import 'package:user_groceryapp/screens/loading_manager.dart';
 import 'package:user_groceryapp/screens/orders/orders_screen.dart';
 import 'package:user_groceryapp/screens/payment/payment.dart';
@@ -134,7 +139,7 @@ class _UserScreenState extends State<UserScreen> {
                   height: 5,
                 ),
                 TextWidget(
-                  text: _number == null ? '015xxxxxxxx' : _number!,
+                  text: _number == null ? '015XXX-XXXXXX' : _number!,
                   color: color,
                   textSize: 18,
                   // isTitle: true,
@@ -176,6 +181,15 @@ class _UserScreenState extends State<UserScreen> {
                   color: color,
                 ),
                 _listTiles(
+                  title: 'Feedback',
+                  icon: Icons.feedback,
+                  onPressed: () {
+                    GlobalMethods.navigateTo(
+                        ctx: context, routeName: FeedbackPage.routenamed);
+                  },
+                  color: color,
+                ),
+                _listTiles(
                   title: 'Payment',
                   icon: IconlyLight.heart,
                   onPressed: () {
@@ -193,6 +207,18 @@ class _UserScreenState extends State<UserScreen> {
                     GlobalMethods.navigateTo(
                         ctx: context,
                         routeName: ViewedRecentlyScreen.routeName);
+                  },
+                  color: color,
+                ),
+                _listTiles(
+                  title: 'Chat',
+                  icon: IconlyLight.chat,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>AuthScreen(),
+                        ));
                   },
                   color: color,
                 ),

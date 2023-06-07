@@ -19,6 +19,7 @@ import 'package:user_groceryapp/screens/auth/forget_pass.dart';
 import 'package:user_groceryapp/screens/auth/login.dart';
 import 'package:user_groceryapp/screens/auth/register.dart';
 import 'package:user_groceryapp/screens/btm_bar.dart';
+import 'package:user_groceryapp/screens/feedback.dart';
 import 'package:user_groceryapp/screens/home_screen.dart';
 import 'package:user_groceryapp/screens/orders/orders_screen.dart';
 import 'package:user_groceryapp/screens/payment/payment.dart';
@@ -116,6 +117,7 @@ class _MyAppState extends State<MyApp> {
                     ProductDetails.routeName: (ctx) => const ProductDetails(),
                     WishlistScreen.routeName: (ctx) => const WishlistScreen(),
                     OrdersScreen.routeName: (ctx) => const OrdersScreen(),
+                    FeedbackPage.routenamed:(ctx)=>FeedbackPage(),
                     ViewedRecentlyScreen.routeName: (ctx) =>
                         const ViewedRecentlyScreen(),
                     RegisterScreen.routeName: (ctx) => const RegisterScreen(),
