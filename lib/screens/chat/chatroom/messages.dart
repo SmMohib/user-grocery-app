@@ -51,7 +51,7 @@ class _MessagesState extends State<Messages> {
                   itemBuilder: (ctx, index) => MessageBubble(
                       documents[index]['text'],
                       documents[index]['userId'] == currId,
-                      documents[index]['userImage'],
+                     // documents[index]['userImage'],
                       documents[index]['time'].toDate(),
                       key: ValueKey(documents[index].id)))
               : Center(child: Text('No Messages in this room'));

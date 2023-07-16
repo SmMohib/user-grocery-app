@@ -14,13 +14,38 @@ class NewMessages extends StatefulWidget {
 class _NewMessagesState extends State<NewMessages> {
   var _enteredMessage;
   final _controller = new TextEditingController();
+  
+  final _fullNameController = TextEditingController();
+  final _emailTextController = TextEditingController();
+  final _passTextController = TextEditingController();
+  final _addressTextController = TextEditingController();
+  final _mobileTextController = TextEditingController();
+  final _passFocusNode = FocusNode();
+  final _emailFocusNode = FocusNode();
+  final _addressFocusNode = FocusNode();
+  final _mobileFocusNode = FocusNode();
+  bool _obscureText = true;
+  @override
+  void dispose() {
+    _fullNameController.dispose();
+    _emailTextController.dispose();
+    _mobileTextController.dispose();
+    _passTextController.dispose();
+    _addressTextController.dispose();
+    _emailFocusNode.dispose();
+    _passFocusNode.dispose();
+    _mobileFocusNode.dispose();
+    _addressFocusNode.dispose();
+    super.dispose();
+  }
+
   Color button = Color(0xff125589);
 
   void _sendMessage() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     SharedPreferences pref = await SharedPreferences.getInstance();
     final userData = await FirebaseFirestore.instance
-        .collection('users2')
+        .collection('users')
         .doc(auth.currentUser?.uid)
         .get();
     FocusScope.of(context).unfocus();
@@ -30,7 +55,6 @@ class _NewMessagesState extends State<NewMessages> {
       'text': _enteredMessage,
       'time': DateTime.now(),
       'userId': auth.currentUser?.uid,
-      'userImage': userData['image_url'],
     });
     _controller.clear();
   }

@@ -47,6 +47,7 @@ dependencies:
   fluttertoast: 
   awesome_card:
   uuid: 
+  firebase_core_platform_interface: 4.5.2
   # Firebase
   firebase_auth:
   google_sign_in:
@@ -57,8 +58,8 @@ dependencies:
   http: 
   flutter_inappwebview: ^5.7.2+3
   encrypt: ^5.0.1
-  firebase_storage: ^11.2.2
-  image_picker: ^0.8.7+5
+  #firebase_storage:
+  image_picker: ^1.0.0
   flutter_riverpod: ^2.3.6
 
 dev_dependencies:
@@ -71,7 +72,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
+  
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

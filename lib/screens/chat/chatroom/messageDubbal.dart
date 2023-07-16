@@ -3,14 +3,13 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:user_groceryapp/common/utils/colors.dart';
 
 class MessageBubble extends StatefulWidget {
-  const MessageBubble(this.message, this.isMe, this.userImage, this.time,
-      {required this.key});
+  const MessageBubble(this.message, this.isMe, this.time, {required this.key});
 
   final String message;
   final bool isMe;
   final Key key;
-  final String userImage;
-  final DateTime time;
+  // final String userImage;
+  final DateTime? time;
 
   @override
   _MessageBubbleState createState() => _MessageBubbleState();
@@ -73,11 +72,12 @@ class _MessageBubbleState extends State<MessageBubble> {
                     : CrossAxisAlignment.start,
                 children: [
                   Text(
-                    secure ? secureMessage : widget.message,
+                    widget.message,
+                    //  secure ? secureMessage : widget.message,
                     style: TextStyle(
                         color: widget.isMe ? Colors.white : myMessage,
                         fontSize: 16),
-                    textAlign: widget.isMe ? TextAlign.end : TextAlign.start,
+                    textAlign: widget.isMe ? TextAlign.start : TextAlign.end,
                   ),
                   SizedBox(height: 2.5),
                   Text(
@@ -91,26 +91,26 @@ class _MessageBubbleState extends State<MessageBubble> {
             ),
           ],
         ),
-        Positioned(
-          top: 17,
-          left: widget.isMe ? null : 200,
-          right: widget.isMe ? 200 : null,
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                main();
-                print(widget.message);
-                secure = !secure;
-              });
-            },
-            child: CircleAvatar(
-              backgroundImage: widget.userImage != null
-                  ? NetworkImage(widget.userImage)
-                  : NetworkImage(
-                      'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/boy_male_avatar_portrait-512.png'),
-            ),
-          ),
-        ),
+        // Positioned(
+        //   top: 17,
+        //   left: widget.isMe ? null : 200,
+        //   right: widget.isMe ? 200 : null,
+        //   child: GestureDetector(
+        //     onTap: () {
+        //       setState(() {
+        //         main();
+        //         print(widget.message);
+        //         secure = !secure;
+        //       });
+        //     },
+        //     // child: CircleAvatar(
+        //     //   backgroundImage: widget.userImage != null
+        //     //       ? NetworkImage(widget.userImage)
+        //     //       : NetworkImage(
+        //     //           'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/boy_male_avatar_portrait-512.png'),
+        //     // ),
+        //   ),
+        // ),
       ],
     );
   }

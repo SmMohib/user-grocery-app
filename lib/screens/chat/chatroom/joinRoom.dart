@@ -59,14 +59,14 @@ class _JoinRoomState extends State<JoinRoom> {
       backgroundColor: whiteColor,
       appBar: AppBar(
         title: Text(
-          'Secure Chat',
+          'Chat',
           style: TextStyle(
               color: Color.fromARGB(255, 255, 255, 255),
               fontSize: 17,
               fontWeight: FontWeight.bold,
               letterSpacing: 1),
         ),
-        textTheme: TextTheme(bodyText1: TextStyle(color: textColor)),
+        //textTheme: TextTheme(bodyText1: TextStyle(color: textColor)),
         elevation: 0,
         backgroundColor: appBarColor,
         centerTitle: true,

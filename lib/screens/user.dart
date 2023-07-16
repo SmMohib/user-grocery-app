@@ -217,7 +217,7 @@ class _UserScreenState extends State<UserScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>AuthScreen(),
+                          builder: (context) =>ChatScreens(),
                         ));
                   },
                   color: color,
